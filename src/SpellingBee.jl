@@ -5,15 +5,15 @@ export bee_solver, pangram
 WORD_LIST = "/usr/share/dict/words"
 
 """
-    load_all_words(file_name::String = "/usr/share/dict/words")::Set{String}
-Read in a dictionary of allowable words to be the answers to a SpellingBee puzzle.
+    load_all_words(file_name::String = WORD_LIST)::Set{String}
+Read in a dictionary of allowable words to be the answers to a SpellingBee puzzle
+from the file named in `file_name`. The default `WORD_LIST` is 
+`"/usr/share/dict/words"`.
 """
 function load_all_words(file_name::String = WORD_LIST)
     F = open(file_name)
     wlist = readlines(F)
-
-    S = Set{String}()
-
+    clear_all_words()
     for w in wlist
         if length(w) < 4 || any(isuppercase(c) for c in w)
             continue
@@ -22,6 +22,18 @@ function load_all_words(file_name::String = WORD_LIST)
     end
     nothing
 end
+
+"""
+    clear_all_words
+Delete all words from the list of allowable words.
+"""
+function clear_all_words()
+    for word ∈ WORDS
+        delete!(WORDS,word)
+    end
+    nothing
+end
+
 
 WORDS = Set{String}()
 load_all_words()
@@ -45,7 +57,6 @@ Find all words with 4 or more letters that must use `a`
 and any of the letters in `bcdefg`.
 """
 function bee_solver(middle::Char, surround::String)::Vector{String}
-    # wlist = load_all_words()
     middle = uppercase(middle)
     surround = uppercase(surround)
 
@@ -70,7 +81,6 @@ end
 Find all words that include all the characters in `letters`.
 """
 function pangram(letters::String)::Vector{String}
-    # wlist = load_all_words()
     letters = uppercase(letters)
     S = Set(
         word for
