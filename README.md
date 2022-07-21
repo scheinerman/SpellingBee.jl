@@ -14,6 +14,7 @@ julia> pangram("wodnlet")
  "LETDOWN"
  ```
 
+`bee_solver` takes an optional third integer argument giving the minimum length of a word (default is 4).
 
 
 

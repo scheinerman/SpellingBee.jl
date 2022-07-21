@@ -29,7 +29,7 @@ Delete all words from the list of allowable words.
 """
 function clear_all_words()
     for word ∈ WORDS
-        delete!(WORDS,word)
+        delete!(WORDS, word)
     end
     nothing
 end
@@ -39,12 +39,14 @@ WORDS = Set{String}()
 load_all_words()
 
 """
-    bee_filter(word::String, middle::Char, surround::String)::Bool
+    bee_filter(word::String, middle::Char, surround::String, min_len::Int = 4)::Bool
 See if `word` is a valid solution to a SpellingBee puzzle where the middle letter 
 is `middle` and the other letters are in `surround`.
+
+`min_len` sets the minimum length of a valid word (default to be 4).
 """
-function bee_filter(word::String, middle::Char, surround::String)::Bool
-    if middle ∉ word
+function bee_filter(word::String, middle::Char, surround::String, min_len::Int = 4)::Bool
+    if middle ∉ word || length(word) < min_len
         return false
     end
     valids = surround * middle
@@ -52,23 +54,25 @@ function bee_filter(word::String, middle::Char, surround::String)::Bool
 end
 
 """
-    bee_solver('a', "bcdefg")
+    bee_solver('a', "bcdefg", min_len)
 Find all words with 4 or more letters that must use `a`
 and any of the letters in `bcdefg`.
+
+`min_len` sets the minimum length of a valid word (default to be 4).
 """
-function bee_solver(middle::Char, surround::String)::Vector{String}
+function bee_solver(middle::Char, surround::String, min_len::Int = 4)::Vector{String}
     middle = uppercase(middle)
     surround = uppercase(surround)
 
-    S = Set(w for w ∈ WORDS if bee_filter(w, middle, surround))
+    S = Set(w for w ∈ WORDS if bee_filter(w, middle, surround, min_len))
     sort(collect(S))
 end
 
-function bee_solver(middle::String, surround::String)::Vector{String}
+function bee_solver(middle::String, surround::String, min_len::Int = 4)::Vector{String}
     if length(middle) != 1
         error("First argument should be a single character")
     end
-    bee_solver(middle[1], surround)
+    bee_solver(middle[1], surround, min_len)
 end
 
 
