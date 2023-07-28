@@ -54,11 +54,12 @@ function bee_filter(word::String, middle::Char, surround::String, min_len::Int =
 end
 
 """
+    bee_solve("abcdefg")
     bee_solver('a', "bcdefg", min_len)
 Find all words with 4 or more letters that must use `a`
 and any of the letters in `bcdefg`.
 
-`min_len` sets the minimum length of a valid word (default to be 4).
+`min_len` sets the minimum length of a valid word (default is 4).
 """
 function bee_solver(middle::Char, surround::String, min_len::Int = 4)::Vector{String}
     middle = uppercase(middle)
@@ -74,6 +75,7 @@ function bee_solver(middle::String, surround::String, min_len::Int = 4)::Vector{
     end
     bee_solver(middle[1], surround, min_len)
 end
+
 
 
 function pangram_filter(word::String, letters::String)::Bool
@@ -94,6 +96,23 @@ function pangram(letters::String)::Vector{String}
 end
 
 
+function bee_solver(word::String)
+    if length(word) != 7
+        @warn "Expected seven letters"
+    end
+    plist = pangram(word)
+    if length(plist) == 0
+        println("No pangrams found")
+    else
+        println("Pangrams:")
+        for p in plist 
+            println("\t", p)
+        end
+    end
+    first  = word[1]
+    rest   = word[2:end]
+    return bee_solver(first, rest)
+end
 
 
 end # module
