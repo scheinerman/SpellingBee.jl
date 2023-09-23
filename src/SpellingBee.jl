@@ -105,13 +105,15 @@ function bee_solver(word::String)
         println("No pangrams found")
     else
         println("Pangrams:")
-        for p in plist 
+        for p in plist
             println("\t", p)
         end
     end
-    first  = word[1]
-    rest   = word[2:end]
-    return bee_solver(first, rest)
+    first = word[1]
+    rest = word[2:end]
+    x = bee_solver(first, rest)
+    println("$(length(x)) words found")
+    return x
 end
 
 

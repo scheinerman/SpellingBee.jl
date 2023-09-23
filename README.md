@@ -18,12 +18,13 @@ julia> pangram("wodnlet")
 
 ### All in one
 If `bee_solver` is given a string of seven letters, the first letter is understood to be the center letter
-and the remaining six are the outer letters. This version prints the pangrams and then returns the list of
-words it found.
+and the remaining six are the outer letters. This version prints the pangrams, the number of words found,  
+and then returns the list of words it found.
 ```
  bee_solver("wodnlet")
 Pangrams:
 	LETDOWN
+85 words found
 85-element Vector{String}:
  "DEWOOL"
  "DOWD"
