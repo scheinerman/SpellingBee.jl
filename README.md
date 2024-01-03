@@ -43,7 +43,7 @@ Pangrams:
 
 
 
-## List of Words
+## List of words
 
 By default we use the list of words found in the file `/usr/share/dict/words`.  To change this default, edit `src/SpellingBee.jl` and change the value assigned to `WORD_LIST`.
 
@@ -51,3 +51,6 @@ To switch to a different word list in the middle of a session, use
 `SpellingBee.load_all_words(filename)`. Any word in the file `filename` that contains a 
 capital letter is ignored. 
 
+## Fool-proof cheating
+
+See the shell script `bee_buster.sh` in the `cheating` folder if you want to get Queen Bee every time.
