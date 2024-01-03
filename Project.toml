@@ -1,4 +1,4 @@
 name = "SpellingBee"
 uuid = "8c47bcff-f673-4ff3-ac95-82f5cf34f400"
 authors = ["Ed Scheinerman <ers@jhu.edu>"]
-version = "0.0.4"
+version = "0.1.0"
